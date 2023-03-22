@@ -10,12 +10,14 @@ const FormControl = styled.div`
     font-weight: bold;
     display: block;
     margin-bottom: 0.5rem;
+    color: ${(props) => (props.invalid ? "red" : "black")};
   }
 
   & input {
     display: block;
     width: 100%;
-    border: 1px solid #ccc;
+    border: 1px solid ${(props) => (props.invalid ? "red" : "#ccc")};
+    background: ${(props) => (props.invalid ? "salmon" : "white")};
     font: inherit;
     line-height: 1.5rem;
     padding: 0 0.25rem;
@@ -25,15 +27,6 @@ const FormControl = styled.div`
     outline: none;
     background: #fad0ec;
     border-color: #8b005d;
-  }
-
-  &.invalid input {
-    border-color: red;
-    background-color: salmon;
-  }
-
-  &.invalid label {
-    color: red;
   }
 `;
 
@@ -61,7 +54,9 @@ const CourseInput = (props) => {
     <form onSubmit={formSubmitHandler}>
       {/* replace the old div method of loading in the css and replace it with the newly created component FormControl from above */}
       {/* <div className={`form-control ${!validInput ? "invalid" : ""}`}> */}
-      <FormControl className={!validInput && "invalid"}>
+      {/* two different ways to render the conditional component inside the FormControl component */}
+      {/* #1 <FormControl className={!validInput && "invalid"}> */}
+      <FormControl invalid={!validInput}>
         <label>Course Goal</label>
         <input
           // inline styles for dynamic css , replaced with styles from CourseInput.css
